@@ -1,4 +1,4 @@
-function {%= nameClass %}Edit(runtime, element) {
+function QualtricsSurveyEdit(runtime, element) {
     'use strict';
 
     var $ = window.$;
@@ -21,7 +21,7 @@ function {%= nameClass %}Edit(runtime, element) {
             type: 'POST',
             data: JSON.stringify({
                 // TODO: Add entries here for each field to be saved
-                'name': $('#xblock_{%= namePackage %}_name').val(),
+                'name': $('#xblock_qualtricssurvey_name').val(),
             }),
             success: function buttonSaveOnSuccess() {
                 runtime.notify('save', {

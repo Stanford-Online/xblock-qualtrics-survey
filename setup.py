@@ -15,21 +15,21 @@ setuptools.setup(
     url=package_json.get('homepage'),
     license='AGPL-3.0',
     packages=[
-        '{%= namePackage %}',
+        'qualtricssurvey',
     ],
     install_requires=[
         'XBlock',
     ],
     entry_points={
         'xblock.v1': [
-            '{%= namePackage %} = {%= namePackage %}:{%= nameClass %}',
+            'qualtricssurvey = qualtricssurvey:QualtricsSurvey',
         ],
     },
     package_dir={
-        '{%= namePackage %}': '{%= namePackage %}',
+        'qualtricssurvey': 'qualtricssurvey',
     },
     package_data={
-        "{%= namePackage %}": [
+        "qualtricssurvey": [
             'public/*',
         ],
     },

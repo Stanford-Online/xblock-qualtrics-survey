@@ -1,4 +1,4 @@
-function {%= nameClass %}View(runtime, element) {
+function QualtricsSurveyView(runtime, element) {
     'use strict';
 
     var $ = window.jQuery;
