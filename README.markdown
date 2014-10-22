@@ -1,33 +1,26 @@
 # Qualtrics Survey
-Xbock for creating a Qualtrics survey.
+Xblock for creating a Qualtrics survey.
 
-## TODO List:
-- [ ] Write tests
-- [ ] Update the `student_view`
-    - [ ] `./qualtricssurvey/private/view.html`
-        - Add content to `<div class="qualtricssurvey_block"></div>` element
-    - [ ] `./qualtricssurvey/private/view.js`
-        - Add logic to `QualtricsSurveyView` function
-    - [ ] `./qualtricssurvey/private/view.less`
-        - Add styles to `.qualtricssurvey_block { }` block
-    - [ ] `./qualtricssurvey/qualtricssurvey.py`
-        - Add back-end logic to `student_view` method
-- [ ] Update the `studio_view`
-    - [ ] `./qualtricssurvey/private/edit.html`
-        - Add `<LI>` entries to `<ul class="list-input settings-list">` for each new field
-    - [ ] `./qualtricssurvey/private/edit.js`
-        - Add entry for each field to `QualtricsSurveyEdit
-    - [ ] `./qualtricssurvey/private/edit.less`
-        - Add styles to `.qualtricssurvey_edit { }` block (if needed)
-    - [ ] `./qualtricssurvey/qualtricssurvey.py`
-        - Add entry for each field to ``
-- [ ] Update package metadata
-    - [ ] `./package.json`
-        - https://www.npmjs.org/doc/files/package.json.html
-    - [ ] `./setup.py`
-        - https://docs.python.org/2/distutils/setupscript.html#additional-meta-data
-- [ ] Update `./Gruntfile.js`
-    - http://gruntjs.com/getting-started
-- [ ] Update `./README.markdown`
-- [ ] Write documentation
-- [ ] Publish on PyPi
+This package provides a Xblock for use with the Edx platform that makes it
+easy to link to a Qualtrics survey from your course.
+
+Instructors define the following paramters in Studio:
+- display name
+- survey id
+- university
+- link text
+- parameter name for userid
+
+Students click on a link within the unit and this takes them to the survey.
+
+
+
+# Installation
+- Add the xblock to your requirements/edx/github.text file
+  e.g. -e git+https://github.com/Stanford-Online/xblock-qualtrics-survey@cfb793db182b60281875b83b53a98640d740ebcf#egg=xblock-qualtrics-survey
+
+- In Studio Settings/Advanced Settings add the xblock to the Advanced Module List.
+  e.g. "qualtricssurvey"
+
+Now, when you create a component "Qualtrics Survey" should appear in the Advanced Component List.
+

@@ -21,44 +21,17 @@ module.exports = function (grunt) {
             options: {
                 separator: ';\n',
             },
-            jsView: {
-                src: [
-                    directoryPrivate + '/view.js',
-                ],
-                dest: directoryPublic + '/view.js',
-            },
             jsEdit: {
                 src: [
                     directoryPrivate + '/edit.js',
                 ],
                 dest: directoryPublic + '/edit.js',
             },
-            cssView: {
-                src: [
-                    directoryPrivate + '/view.less',
-                ],
-                dest: directoryPublic + '/view.less',
-            },
             cssEdit: {
                 src: [
                     directoryPrivate + '/edit.less',
                 ],
                 dest: directoryPublic + '/edit.less',
-            },
-        },
-        copy: {
-            images: {
-                files: [
-                    {
-                        expand: true,
-                        src: [
-                            directoryPrivate + '/**/*.jpg',
-                            directoryPrivate + '/**/*.png',
-                            directoryPrivate + '/**/*.gif',
-                        ],
-                        dest: directoryPublic + '/',
-                    },
-                ],
             },
         },
         csslint: {
@@ -110,19 +83,6 @@ module.exports = function (grunt) {
             ],
         },
         less: {
-            view: {
-                options: {
-                    sourceMap: true,
-                    sourceMapFilename: 'qualtricssurvey/public/view.less.min.css.map',
-                    outputSourceFiles: true,
-                    cleancss: true,
-                    compress: true,
-                },
-                files: {
-                    'qualtricssurvey/public/view.less.min.css':
-                        directoryPublic + '/view.less',
-                },
-            },
             edit: {
                 options: {
                     sourceMap: true,
@@ -178,7 +138,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
 
@@ -186,7 +145,6 @@ module.exports = function (grunt) {
         'jshint',
         'csslint',
         'concat',
-        'copy',
         'uglify',
         'less',
         'htmlmin',
