@@ -2,79 +2,89 @@
 This is the core logic for the Qualtrics Survey
 """
 import os
+import pkg_resources, cgi
 
-import pkg_resources
+from django.utils.translation import ugettext as _
 
 from xblock.core import XBlock
 from xblock.fields import Scope
 from xblock.fields import String
 from xblock.fragment import Fragment
+from xblockutils.studio_editable import StudioEditableXBlockMixin
 
-
-class QualtricsSurvey(XBlock):
+class QualtricsSurvey(StudioEditableXBlockMixin, XBlock):
     """
-    Xbock for creating a Qualtrics survey.
+    Xblock for creating a Qualtrics survey.
     """
-
-    @staticmethod
-    def workbench_scenarios():
-        """
-        Gather scenarios to be displayed in the workbench
-        """
-        return [
-            ('Qualtrics Survey',
-             """<sequence_demo>
-                    <qualtricssurvey />
-                    <qualtricssurvey name="My First XBlock" />
-                </sequence_demo>
-             """),
-        ]
-
-    name = String(
-        default='Qualtrics Survey',
+    display_name = String(
+        display_name=_('Display Name:'),
+        default=_('Qualtrics Survey'),
         scope=Scope.settings,
-        help="This is the XBlock's name",
+        help=_('This name appears in the horizontal navigation at the top of the page.'),
     )
+    survey_id = String(
+        display_name=_('Survey ID:'),
+        default=_('Enter your survey ID here.'),
+        scope=Scope.settings,
+        help=_('This is the ID that Qualtrics uses for the survey, usually an 8 digit number.'),
+    )
+    your_university = String(
+        display_name=_('Your University:'),
+        default=_('stanford'),
+        scope=Scope.settings,
+        help=_('This is the name of your university.'),
+    )                       
+    link_text = String(
+        display_name=_('Link Text:'),
+        default=_('click here'),
+        scope=Scope.settings,
+        help=_('This is the text that will link to your survey.'),
+    )
+    param_name = String(
+        display_name=_('Param Name:'),
+        default=_('a'),
+        scope=Scope.settings,
+        help=_('This is the name for the User ID parameter in the url. If blank, User ID is ommitted from the url.'),
+    )
+    editable_fields = ('display_name', 'survey_id', 'your_university', 'link_text', 'param_name')
 
     def student_view(self, context=None):
         """
         Build the fragment for the default student view
         """
-        fragment = self.build_fragment(
-            path_html='view.html',
-            path_css='view.less.min.css',
-            path_js='view.js.min.js',
-            fragment_js='QualtricsSurveyView',
+
+        display_name = self.display_name
+        survey_id = self.survey_id
+        your_university = self.your_university
+        link_text = self.link_text
+        param_name = self.param_name
+
+        anon_user_id = self.xmodule_runtime.anonymous_student_id
+
+        # %%PARAM%% substitution only works in HTML components
+        # so it has to be done here for ANON_USER_ID
+        user_id_string = ""
+        if param_name:
+            user_id_string = ('&amp;{param_name}={anon_user_id}').format(
+                param_name=param_name,
+                anon_user_id=anon_user_id,
+            )
+
+        html_source = self.get_resource_string('view.html')
+        html_source = html_source.format(
+            self=self,
+            display_name=display_name,
+            survey_id=survey_id,
+            your_university=your_university,
+            link_text=link_text,
+            user_id_string=user_id_string,
         )
-        return fragment
 
-    def studio_view(self, context=None):
-        """
-        Build the fragment for the edit/studio view
-
-        Implementation is optional.
-        """
         fragment = self.build_fragment(
-            path_html='edit.html',
-            path_css='edit.less.min.css',
-            path_js='edit.js.min.js',
-            fragment_js='QualtricsSurveyEdit',
+            html_source=html_source,
         )
+
         return fragment
-
-    @XBlock.json_handler
-    def studio_view_save(self, data, suffix=''):
-        """
-        Save XBlock fields
-
-        Returns: the new field values
-        """
-
-        # TODO: Add an entry here for each field.
-        self.name = data['name']
-        return {
-            'name': self.name,
-        }
 
     def get_resource_string(self, path):
         """
@@ -93,18 +103,15 @@ class QualtricsSurvey(XBlock):
         return resource_url
 
     def build_fragment(self,
-        path_html='',
+        html_source=None,
         path_css=None,
         path_js=None,
-        fragment_js=None
+        fragment_js=None,
     ):
         """
         Assemble the HTML, JS, and CSS for an XBlock fragment
         """
-        html_source = self.get_resource_string(path_html)
-        html_source = html_source.format(
-            self=self,
-        )
+
         fragment = Fragment(html_source)
         if path_css:
             css_url = self.get_resource_url(path_css)
@@ -114,4 +121,5 @@ class QualtricsSurvey(XBlock):
             fragment.add_javascript_url(js_url)
         if fragment_js:
             fragment.initialize_js(fragment_js)
+
         return fragment

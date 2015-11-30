@@ -1,19 +1,19 @@
 {
-  "name": "qualtrics_survey",
+  "name": "xblock_qualtrics_survey",
   "title": "Qualtrics Survey",
-  "description": "Xbock for creating a Qualtrics survey.",
+  "description": "Xblock for creating a Qualtrics survey.",
   "version": "0.1.0",
-  "homepage": "https://github.com/dcadams/xblock-factory",
+  "homepage": "https://github.com/Stanford-Online/xblock-qualtrics-survey",
   "author": {
     "name": "David Adams",
     "email": "dcadams@stanford.edu"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/dcadams/xblock-factory.git"
+    "url": "https://github.com/Stanford-Online/xblock-qualtrics-survey.git"
   },
   "bugs": {
-    "url": "https://github.com/dcadams/xblock-factory/issues"
+    "url": "https://github.com/Stanford-Online/xblock-qualtrics-survey/issues"
   },
   "scripts": {
     "test": "grunt --verbose"
@@ -32,7 +32,10 @@
     "grunt-contrib-htmlmin": "^0.3.0"
   },
   "keywords": [
+    "stanford",
     "openedx",
-    "xblock"
+    "xblock",
+    "edx",
+    "qualtrics"
   ]
 }
