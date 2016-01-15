@@ -22,24 +22,32 @@ class QualtricsSurveyXblockTests(unittest.TestCase):
 
     def test_student_view(self):
         """
-        Checks the student view with param_name but without anonymous_user_id.
+        Checks the student view with param_name but without
+        anonymous_user_id.
         """
 
-        xblock = self.make_an_xblock()    
+        xblock = self.make_an_xblock()
         fragment = xblock.student_view()
 
-        url_frag = 'href="https://stanford.qualtrics.com/SE/?SID=Enter your survey ID here.&amp;a='
+        url_frag = (
+            'href="https://stanford.qualtrics.com/SE/?SID=Enter '
+            'your survey ID here.&amp;a='
+        )
         self.assertIn(url_frag, fragment.content)
         url_frag = '>" target="_blank">click here'
         self.assertIn(url_frag, fragment.content)
 
     def test_student_view_no_param_name(self):
         """
-        Checks the student view without param_name; user id part should be missing.
+        Checks the student view without param_name;
+        user id part should be missing.
         """
 
         xblock = self.make_an_xblock(param_name=None)
         fragment = xblock.student_view()
 
-        url = '"https://stanford.qualtrics.com/SE/?SID=Enter your survey ID here." target="_blank">click here'
+        url = (
+            '"https://stanford.qualtrics.com/SE/?SID=Enter your survey ID '
+            'here." target="_blank">click here'
+        )
         self.assertIn(url, fragment.content)

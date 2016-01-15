@@ -2,7 +2,8 @@
 This is the core logic for the Qualtrics Survey
 """
 import os
-import pkg_resources, cgi
+import cgi
+import pkg_resources
 
 from django.utils.translation import ugettext as _
 
@@ -12,6 +13,7 @@ from xblock.fields import String
 from xblock.fragment import Fragment
 from xblockutils.studio_editable import StudioEditableXBlockMixin
 
+
 class QualtricsSurvey(StudioEditableXBlockMixin, XBlock):
     """
     Xblock for creating a Qualtrics survey.
@@ -20,20 +22,27 @@ class QualtricsSurvey(StudioEditableXBlockMixin, XBlock):
         display_name=_('Display Name:'),
         default=_('Qualtrics Survey'),
         scope=Scope.settings,
-        help=_('This name appears in the horizontal navigation at the top of the page.'),
+        help=_(
+            'This name appears in the horizontal navigation at the top '
+            'of the page.'
+        ),
     )
     survey_id = String(
         display_name=_('Survey ID:'),
         default=_('Enter your survey ID here.'),
         scope=Scope.settings,
-        help=_('This is the ID that Qualtrics uses for the survey, usually an 8 digit number.'),
+        help=_(
+            'This is the ID that Qualtrics uses for the survey, which can '
+            'include numbers and letters, and should be entered in the '
+            'following format: SV_###############'
+        ),
     )
     your_university = String(
         display_name=_('Your University:'),
         default=_('stanford'),
         scope=Scope.settings,
         help=_('This is the name of your university.'),
-    )                       
+    )
     link_text = String(
         display_name=_('Link Text:'),
         default=_('click here'),
@@ -44,9 +53,18 @@ class QualtricsSurvey(StudioEditableXBlockMixin, XBlock):
         display_name=_('Param Name:'),
         default=_('a'),
         scope=Scope.settings,
-        help=_('This is the name for the User ID parameter in the url. If blank, User ID is ommitted from the url.'),
+        help=_(
+            'This is the name for the User ID parameter in the url. '
+            'If blank, User ID is ommitted from the url.'
+        ),
     )
-    editable_fields = ('display_name', 'survey_id', 'your_university', 'link_text', 'param_name')
+    editable_fields = (
+        'display_name',
+        'survey_id',
+        'your_university',
+        'link_text',
+        'param_name',
+    )
 
     def student_view(self, context=None):
         """
@@ -102,7 +120,8 @@ class QualtricsSurvey(StudioEditableXBlockMixin, XBlock):
         resource_url = self.runtime.local_resource_url(self, path)
         return resource_url
 
-    def build_fragment(self,
+    def build_fragment(
+        self,
         html_source=None,
         path_css=None,
         path_js=None,
