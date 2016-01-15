@@ -26,7 +26,11 @@ class QualtricsSurvey(StudioEditableXBlockMixin, XBlock):
         display_name=_('Survey ID:'),
         default=_('Enter your survey ID here.'),
         scope=Scope.settings,
-        help=_('This is the ID that Qualtrics uses for the survey, usually an 8 digit number.'),
+        help=_(
+            'This is the ID that Qualtrics uses for the survey, which can '
+            'include numbers and letters, and should be entered in the '
+            'following format: SV_###############'
+        ),
     )
     your_university = String(
         display_name=_('Your University:'),
