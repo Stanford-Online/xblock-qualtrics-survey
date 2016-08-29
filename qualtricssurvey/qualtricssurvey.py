@@ -45,7 +45,7 @@ class QualtricsSurvey(StudioEditableXBlockMixin, XBlock):
     )
     link_text = String(
         display_name=_('Link Text:'),
-        default=_('click here'),
+        default=_('Begin Survey'),
         scope=Scope.settings,
         help=_('This is the text that will link to your survey.'),
     )
