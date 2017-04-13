@@ -39,7 +39,7 @@ class QualtricsSurvey(StudioEditableXBlockMixin, XBlock):
     )
     your_university = String(
         display_name=_('Your University:'),
-        default=_('stanford'),
+        default='stanforduniversity',
         scope=Scope.settings,
         help=_('This is the name of your university.'),
     )
@@ -87,7 +87,7 @@ class QualtricsSurvey(StudioEditableXBlockMixin, XBlock):
         # so it has to be done here for ANON_USER_ID
         user_id_string = ""
         if param_name:
-            user_id_string = ('&amp;{param_name}={anon_user_id}').format(
+            user_id_string = ('&quest;{param_name}={anon_user_id}').format(
                 param_name=param_name,
                 anon_user_id=anon_user_id,
             )

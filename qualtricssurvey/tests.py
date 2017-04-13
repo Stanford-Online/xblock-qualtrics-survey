@@ -30,11 +30,11 @@ class QualtricsSurveyXblockTests(unittest.TestCase):
         fragment = xblock.student_view()
 
         url_frag = (
-            'href="https://stanford.qualtrics.com/SE/?SID=Enter '
-            'your survey ID here.&amp;a='
+            'href="https://stanforduniversity.qualtrics.com/jfe/form/Enter '
+            'your survey ID here.&quest;a='
         )
         self.assertIn(url_frag, fragment.content)
-        url_frag = '>" target="_blank">click here'
+        url_frag = '>" target="_blank">Begin Survey'
         self.assertIn(url_frag, fragment.content)
 
     def test_student_view_no_param_name(self):
@@ -47,7 +47,7 @@ class QualtricsSurveyXblockTests(unittest.TestCase):
         fragment = xblock.student_view()
 
         url = (
-            '"https://stanford.qualtrics.com/SE/?SID=Enter your survey ID '
-            'here." target="_blank">click here'
+            '"https://stanforduniversity.qualtrics.com/jfe/form/Enter your survey ID '
+            'here." target="_blank">Begin Survey'
         )
         self.assertIn(url, fragment.content)
