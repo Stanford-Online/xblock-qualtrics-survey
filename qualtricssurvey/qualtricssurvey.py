@@ -49,6 +49,12 @@ class QualtricsSurvey(StudioEditableXBlockMixin, XBlock):
         scope=Scope.settings,
         help=_('This is the text that will link to your survey.'),
     )
+    message = String(
+        display_name=_('Message:'),
+        default=_('The survey will open in a new browser tab or window.'),
+        scope=Scope.settings,
+        help=_('This is the text that will be displayed above the link to your survey.'),
+    )
     param_name = String(
         display_name=_('Param Name:'),
         default=_('a'),
@@ -64,6 +70,7 @@ class QualtricsSurvey(StudioEditableXBlockMixin, XBlock):
         'your_university',
         'link_text',
         'param_name',
+        'message',
     )
 
     # Decorate the view in order to support multiple devices e.g. mobile
@@ -80,6 +87,7 @@ class QualtricsSurvey(StudioEditableXBlockMixin, XBlock):
         your_university = self.your_university
         link_text = self.link_text
         param_name = self.param_name
+        message = self.message
 
         anon_user_id = self.xmodule_runtime.anonymous_student_id
 
@@ -100,6 +108,7 @@ class QualtricsSurvey(StudioEditableXBlockMixin, XBlock):
             your_university=your_university,
             link_text=link_text,
             user_id_string=user_id_string,
+            message=message,
         )
 
         fragment = self.build_fragment(

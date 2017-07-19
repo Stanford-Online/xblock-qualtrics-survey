@@ -9,6 +9,7 @@ Instructors define the following paramters in Studio:
 - survey id
 - university
 - link text
+- message
 - parameter name for userid
 
 Students click on a link within the unit and this takes them to the survey.
