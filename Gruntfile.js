@@ -21,17 +21,17 @@ module.exports = function (grunt) {
             options: {
                 separator: ';\n',
             },
-            jsEdit: {
+            jsView: {
                 src: [
-                    directoryPrivate + '/edit.js',
+                    directoryPrivate + '/view.js',
                 ],
-                dest: directoryPublic + '/edit.js',
+                dest: directoryPublic + '/view.js',
             },
-            cssEdit: {
+            cssView: {
                 src: [
-                    directoryPrivate + '/edit.less',
+                    directoryPrivate + '/view.less',
                 ],
-                dest: directoryPublic + '/edit.less',
+                dest: directoryPublic + '/view.less',
             },
         },
         csslint: {
@@ -67,7 +67,6 @@ module.exports = function (grunt) {
                     removeEmptyAttributes: true,
                 },
                 files: {
-                    'qualtricssurvey/public/edit.html': directoryPrivate + '/edit.html',
                     'qualtricssurvey/public/view.html': directoryPrivate + '/view.html',
                 },
             },
@@ -83,17 +82,17 @@ module.exports = function (grunt) {
             ],
         },
         less: {
-            edit: {
+            view: {
                 options: {
                     sourceMap: true,
-                    sourceMapFilename: 'qualtricssurvey/public/edit.less.min.css.map',
+                    sourceMapFilename: 'qualtricssurvey/public/view.less.min.css.map',
                     outputSourceFiles: true,
                     cleancss: true,
                     compress: true,
                 },
                 files: {
-                    'qualtricssurvey/public/edit.less.min.css':
-                        directoryPublic + '/edit.less',
+                    'qualtricssurvey/public/view.less.min.css':
+                        directoryPublic + '/view.less',
                 },
             },
         },

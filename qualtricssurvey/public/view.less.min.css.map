@@ -1,0 +1,1 @@
+{"version":3,"sources":["./qualtricssurvey/public/view.less"],"names":[],"mappings":"AAAA,sBACI,mBADJ,sBACuB,kBAAiB,OADxC,sBACgD,kBAAiB,SACzD","sourcesContent":[".qualtricssurvey_block {\n    .qualtrics-button, .qualtrics-button:hover, .qualtrics-button:visited {\n        color: white;\n    }\n}\n"]}
