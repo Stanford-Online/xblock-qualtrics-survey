@@ -36,6 +36,8 @@ class QualtricsSurveyXblockTests(unittest.TestCase):
         self.assertIn(url_frag, fragment.content)
         url_frag = '>" target="_blank">Begin Survey'
         self.assertIn(url_frag, fragment.content)
+        messageHTML = '<p>' + xblock.message + '</p>'
+        self.assertIn(messageHTML, fragment.content)
 
     def test_student_view_no_param_name(self):
         """
@@ -51,3 +53,16 @@ class QualtricsSurveyXblockTests(unittest.TestCase):
             'here." target="_blank">Begin Survey'
         )
         self.assertIn(url, fragment.content)
+
+    def test_student_view_custom_message(self):
+        """
+        Checks the student view with a custom message.
+        """
+
+        message = "test message"
+        xblock = self.make_an_xblock()
+        xblock.message = message
+        fragment = xblock.student_view()
+
+        messageHTML = '<p>' + message + '</p>'
+        self.assertIn(messageHTML, fragment.content)
