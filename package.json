@@ -2,7 +2,7 @@
   "name": "xblock_qualtrics_survey",
   "title": "Qualtrics Survey",
   "description": "Xblock for creating a Qualtrics survey.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/Stanford-Online/xblock-qualtrics-survey",
   "author": {
     "name": "David Adams",
