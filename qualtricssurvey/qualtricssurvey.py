@@ -20,7 +20,7 @@ class QualtricsSurvey(StudioEditableXBlockMixin, XBlock):
     """
     display_name = String(
         display_name=_('Display Name:'),
-        default=_('Qualtrics Survey'),
+        default='Qualtrics Survey',
         scope=Scope.settings,
         help=_(
             'This name appears in the horizontal navigation at the top '
