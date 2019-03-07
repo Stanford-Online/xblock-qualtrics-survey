@@ -1,24 +1,27 @@
-import json
-import setuptools
+"""
+XBlock for linking to a Qualtrics survey
+"""
+from setuptools import setup
 
 
-package_json_file = open('package.json', 'r')
-package_json = json.load(package_json_file)
+description = __doc__
 
-setuptools.setup(
-    name=package_json.get('name', 'xblock-test'),
-    version=package_json.get('version', '0.1.1'),
-    description=package_json.get('description'),
-    long_description=package_json.get('description'),
-    author=package_json.get('author', {}).get('name'),
-    author_email=package_json.get('author', {}).get('email'),
-    url=package_json.get('homepage'),
+setup(
+    name='xblock_qualtrics_survey',
+    version='0.1.3',
+    description=description,
+    long_description=description,
+    author='David Adams',
+    author_email='dcadams@stanford.edu',
+    url="https://github.com/Stanford-Online/xblock-qualtrics-survey",
     license='AGPL-3.0',
     packages=[
         'qualtricssurvey',
     ],
     install_requires=[
+        'Django<2.0.0',
         'XBlock',
+        'xblock-utils',
     ],
     entry_points={
         'xblock.v1': [
@@ -29,6 +32,8 @@ setuptools.setup(
         'qualtricssurvey': 'qualtricssurvey',
     },
     package_data={
+        '': [
+        ],
         "qualtricssurvey": [
             'public/*',
         ],
@@ -44,4 +49,5 @@ setuptools.setup(
         'Topic :: Education',
         'Topic :: Internet :: WWW/HTTP',
     ],
+    test_suite='qualtricssurvey.tests',
 )
