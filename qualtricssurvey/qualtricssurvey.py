@@ -85,6 +85,18 @@ class QualtricsSurvey(StudioEditableXBlockMixin, XBlock):
         'message',
     )
 
+    # pylint: disable=no-member
+    def get_anon_id(self):
+        """
+        Return an anonymous user id
+        """
+        try:
+            user_id = self.xmodule_runtime.anonymous_student_id
+        except AttributeError:
+            user_id = -1
+        return user_id
+    # pylint: enable=no-member
+
     # Decorate the view in order to support multiple devices e.g. mobile
     # See: https://openedx.atlassian.net/wiki/display/MA/Course+Blocks+API
     # section 'View @supports(multi_device) decorator'
@@ -101,10 +113,7 @@ class QualtricsSurvey(StudioEditableXBlockMixin, XBlock):
         link_text = self.link_text
         param_name = self.param_name
         message = self.message
-
-        # pylint: disable=no-member
-        anon_user_id = self.xmodule_runtime.anonymous_student_id
-        # pylint: enable=no-member
+        anon_user_id = self.get_anon_id()
 
         # %%PARAM%% substitution only works in HTML components
         # so it has to be done here for ANON_USER_ID
@@ -163,5 +172,45 @@ class QualtricsSurvey(StudioEditableXBlockMixin, XBlock):
             fragment.initialize_js(fragment_js)
 
         return fragment
+
+    @staticmethod
+    def workbench_scenarios():
+        """
+        Gather scenarios to be displayed in the workbench
+        """
+        # pylint: disable=no-self-use
+        # pylint: disable=line-too-long
+        return [
+            ('Qualtrics Survey, single',
+             """<sequence_demo>
+                    <qualtricssurvey />
+                </sequence_demo>
+             """),
+            ('Qualtrics Survey, multiple',
+             """<sequence_demo>
+                    <vertical_demo>
+                        <qualtricssurvey
+                            display_name="First Survey"
+                            survey_id="my-survey-id"
+                        />
+                        <qualtricssurvey
+                            display_name="Second Survey"
+                            your_university="edx"
+                        />
+                    </vertical_demo>
+                    <vertical_demo>
+                        <qualtricssurvey
+                            display_name="Third Survey"
+                            survey_id="my-survey-id"
+                        />
+                        <qualtricssurvey
+                            display_name="Final Survey"
+                            message="A custom message"
+                        />
+                    </vertical_demo>
+                </sequence_demo>
+             """),
+        ]
+        # pylint: disable=line-too-long
 # pylint: enable=too-many-arguments
 # pylint: enable=too-many-ancestors
