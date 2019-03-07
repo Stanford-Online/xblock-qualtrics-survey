@@ -2,8 +2,10 @@
 XBlock for linking to a Qualtrics survey
 """
 from setuptools import setup
+import os
 
 
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.base'
 description = __doc__
 
 setup(
