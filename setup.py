@@ -22,6 +22,8 @@ setup(
     ],
     install_requires=[
         'Django<2.0.0',
+        'edx-opaque-keys',
+        'mock',
         'XBlock',
         'xblock-utils',
     ],
