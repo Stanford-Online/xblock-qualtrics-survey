@@ -2,11 +2,9 @@
 This is the core logic for the Qualtrics Survey
 """
 import os
-import cgi
 import pkg_resources
 
 from django.utils.translation import ugettext_lazy as _
-
 from xblock.core import XBlock
 from xblock.fields import Scope
 from xblock.fields import String
@@ -14,6 +12,17 @@ from xblock.fragment import Fragment
 from xblockutils.studio_editable import StudioEditableXBlockMixin
 
 
+def get_resource_string(path):
+    """
+    Retrieve string contents for the file path
+    """
+    path = os.path.join('public', path)
+    resource_string = pkg_resources.resource_string(__name__, path)
+    return resource_string.decode('utf8')
+
+
+# pylint: disable=too-many-ancestors
+# pylint: disable=too-many-arguments
 class QualtricsSurvey(StudioEditableXBlockMixin, XBlock):
     """
     Xblock for creating a Qualtrics survey.
@@ -29,7 +38,7 @@ class QualtricsSurvey(StudioEditableXBlockMixin, XBlock):
     )
     survey_id = String(
         display_name=_('Survey ID:'),
-        default=_('Enter your survey ID here.'),
+        default='Enter your survey ID here.',
         scope=Scope.settings,
         help=_(
             'This is the ID that Qualtrics uses for the survey, which can '
@@ -45,19 +54,22 @@ class QualtricsSurvey(StudioEditableXBlockMixin, XBlock):
     )
     link_text = String(
         display_name=_('Link Text:'),
-        default=_('Begin Survey'),
+        default='Begin Survey',
         scope=Scope.settings,
         help=_('This is the text that will link to your survey.'),
     )
     message = String(
         display_name=_('Message:'),
-        default=_('The survey will open in a new browser tab or window.'),
+        default='The survey will open in a new browser tab or window.',
         scope=Scope.settings,
-        help=_('This is the text that will be displayed above the link to your survey.'),
+        help=_(
+            'This is the text that will be displayed '
+            'above the link to your survey.'
+        ),
     )
     param_name = String(
         display_name=_('Param Name:'),
-        default=_('a'),
+        default='a',
         scope=Scope.settings,
         help=_(
             'This is the name for the User ID parameter in the url. '
@@ -73,9 +85,22 @@ class QualtricsSurvey(StudioEditableXBlockMixin, XBlock):
         'message',
     )
 
+    # pylint: disable=no-member
+    def get_anon_id(self):
+        """
+        Return an anonymous user id
+        """
+        try:
+            user_id = self.xmodule_runtime.anonymous_student_id
+        except AttributeError:
+            user_id = -1
+        return user_id
+    # pylint: enable=no-member
+
     # Decorate the view in order to support multiple devices e.g. mobile
     # See: https://openedx.atlassian.net/wiki/display/MA/Course+Blocks+API
     # section 'View @supports(multi_device) decorator'
+    # pylint: disable=unused-argument
     @XBlock.supports('multi_device')
     def student_view(self, context=None):
         """
@@ -88,8 +113,7 @@ class QualtricsSurvey(StudioEditableXBlockMixin, XBlock):
         link_text = self.link_text
         param_name = self.param_name
         message = self.message
-
-        anon_user_id = self.xmodule_runtime.anonymous_student_id
+        anon_user_id = self.get_anon_id()
 
         # %%PARAM%% substitution only works in HTML components
         # so it has to be done here for ANON_USER_ID
@@ -100,7 +124,7 @@ class QualtricsSurvey(StudioEditableXBlockMixin, XBlock):
                 anon_user_id=anon_user_id,
             )
 
-        html_source = self.get_resource_string('view.html')
+        html_source = get_resource_string('view.html')
         html_source = html_source.format(
             self=self,
             display_name=display_name,
@@ -116,14 +140,7 @@ class QualtricsSurvey(StudioEditableXBlockMixin, XBlock):
         )
 
         return fragment
-
-    def get_resource_string(self, path):
-        """
-        Retrieve string contents for the file path
-        """
-        path = os.path.join('public', path)
-        resource_string = pkg_resources.resource_string(__name__, path)
-        return resource_string.decode('utf8')
+    # pylint: enable=unused-argument
 
     def get_resource_url(self, path):
         """
@@ -134,11 +151,11 @@ class QualtricsSurvey(StudioEditableXBlockMixin, XBlock):
         return resource_url
 
     def build_fragment(
-        self,
-        html_source=None,
-        path_css=None,
-        path_js=None,
-        fragment_js=None,
+            self,
+            html_source=None,
+            path_css=None,
+            path_js=None,
+            fragment_js=None,
     ):
         """
         Assemble the HTML, JS, and CSS for an XBlock fragment
@@ -155,3 +172,45 @@ class QualtricsSurvey(StudioEditableXBlockMixin, XBlock):
             fragment.initialize_js(fragment_js)
 
         return fragment
+
+    @staticmethod
+    def workbench_scenarios():
+        """
+        Gather scenarios to be displayed in the workbench
+        """
+        # pylint: disable=no-self-use
+        # pylint: disable=line-too-long
+        return [
+            ('Qualtrics Survey, single',
+             """<sequence_demo>
+                    <qualtricssurvey />
+                </sequence_demo>
+             """),
+            ('Qualtrics Survey, multiple',
+             """<sequence_demo>
+                    <vertical_demo>
+                        <qualtricssurvey
+                            display_name="First Survey"
+                            survey_id="my-survey-id"
+                        />
+                        <qualtricssurvey
+                            display_name="Second Survey"
+                            your_university="edx"
+                        />
+                    </vertical_demo>
+                    <vertical_demo>
+                        <qualtricssurvey
+                            display_name="Third Survey"
+                            survey_id="my-survey-id"
+                        />
+                        <qualtricssurvey
+                            display_name="Final Survey"
+                            message="A custom message"
+                        />
+                    </vertical_demo>
+                </sequence_demo>
+             """),
+        ]
+        # pylint: disable=line-too-long
+# pylint: enable=too-many-arguments
+# pylint: enable=too-many-ancestors
