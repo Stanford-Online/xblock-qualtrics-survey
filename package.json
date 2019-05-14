@@ -1,18 +1,10 @@
 {
-  "name": "xblock_qualtrics_survey",
   "scripts": {
-    "test": "make test"
+    "test": "tox"
   },
   "devDependencies": [
     "eslint",
     "less",
     "csslint"
-  ],
-  "keywords": [
-    "stanford",
-    "openedx",
-    "xblock",
-    "edx",
-    "qualtrics"
   ]
 }

@@ -1,0 +1,22 @@
+<sequence_demo>
+    <vertical_demo>
+        <qualtricssurvey
+            display_name="First Survey"
+            survey_id="my-survey-id"
+        />
+        <qualtricssurvey
+            display_name="Second Survey"
+            your_university="edx"
+        />
+    </vertical_demo>
+    <vertical_demo>
+        <qualtricssurvey
+            display_name="Third Survey"
+            survey_id="my-survey-id"
+        />
+        <qualtricssurvey
+            display_name="Final Survey"
+            message="A custom message"
+        />
+    </vertical_demo>
+</sequence_demo>

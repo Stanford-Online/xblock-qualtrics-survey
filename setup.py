@@ -1,21 +1,24 @@
 """
 XBlock for linking to a Qualtrics survey
 """
+from os import path
 from setuptools import setup
-import os
 
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.base'
-description = __doc__
+version = '0.1.3'
+description = __doc__.strip().split('\n')[0]
+this_directory = path.abspath(path.dirname(__file__))
+with open(path.join(this_directory, 'README.rst')) as file_in:
+    long_description = file_in.read()
 
 setup(
     name='xblock_qualtrics_survey',
-    version='0.1.3',
+    version=version,
     description=description,
-    long_description=description,
+    long_description=long_description,
     author='David Adams',
     author_email='dcadams@stanford.edu',
-    url="https://github.com/Stanford-Online/xblock-qualtrics-survey",
+    url='https://github.com/Stanford-Online/xblock-qualtrics-survey',
     license='AGPL-3.0',
     packages=[
         'qualtricssurvey',
@@ -24,22 +27,23 @@ setup(
         'Django<2.0.0',
         'edx-opaque-keys',
         'mock',
+        'six',
         'XBlock',
         'xblock-utils',
     ],
     entry_points={
         'xblock.v1': [
-            'qualtricssurvey = qualtricssurvey:QualtricsSurvey',
+            'qualtricssurvey = qualtricssurvey.xblocks:QualtricsSurvey',
         ],
     },
     package_dir={
         'qualtricssurvey': 'qualtricssurvey',
     },
     package_data={
-        '': [
-        ],
         "qualtricssurvey": [
             'public/*',
+            'scenarios/*.xml',
+            'templates/*',
         ],
     },
     classifiers=[
