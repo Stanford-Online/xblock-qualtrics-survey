@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 Test the Qualtrics Survey XBlock
 """
@@ -7,10 +8,10 @@ import mock
 from opaque_keys.edx.locations import SlashSeparatedCourseKey
 from xblock.field_data import DictFieldData
 
-from qualtricssurvey.qualtricssurvey import QualtricsSurvey
+from qualtricssurvey.xblocks import QualtricsSurvey
 
 
-def make_an_xblock(**kwargs):
+def mock_an_xblock(**kwargs):
     """
     Create and return an instance of the XBlock
     """
@@ -23,49 +24,60 @@ def make_an_xblock(**kwargs):
     return xblock
 
 
-class QualtricsSurveyXblockTests(unittest.TestCase):
+class TestRender(unittest.TestCase):
     """
-    Test the XBlock
+    Test the HTML rendering of the XBlock
     """
+
+    def setUp(self):
+        self.xblock = mock_an_xblock()
+
+    def test_render(self):
+        student_view = self.xblock.student_view()
+        html = student_view.content
+        self.assertIsNotNone(html)
+        self.assertNotEqual('', html)
+        self.assertIn('qualtricssurvey_block', html)
 
     def test_student_view(self):
         """
         Checks the student view with param_name but without
         anonymous_user_id.
         """
-        xblock = make_an_xblock()
+        xblock = self.xblock
         fragment = xblock.student_view()
-        url_frag = (
-            'href="https://stanforduniversity.qualtrics.com/jfe/form/Enter '
-            'your survey ID here.&quest;a='
+        content = fragment.content
+        self.assertIn('Begin Survey', content)
+        self.assertIn('target="_blank"', content)
+        self.assertIn('a=', content)
+        self.assertIn(
+            'href="https://stanforduniversity.qualtrics.com/jfe/form/Enter',
+            content
         )
-        self.assertIn(url_frag, fragment.content)
-        url_frag = '>" target="_blank">Begin Survey'
-        self.assertIn(url_frag, fragment.content)
-        message_html = '<p>' + xblock.message + '</p>'
-        self.assertIn(message_html, fragment.content)
+        self.assertIn(xblock.message, content)
 
     def test_student_view_no_param_name(self):
         """
         Checks the student view without param_name;
         user id part should be missing.
         """
-        xblock = make_an_xblock(param_name=None)
+        xblock = mock_an_xblock(param_name=None)
         fragment = xblock.student_view()
-        url = (
-            '"https://stanforduniversity.qualtrics.com/'
-            'jfe/form/Enter your survey ID '
-            'here." target="_blank">Begin Survey'
-        )
-        self.assertIn(url, fragment.content)
+        content = fragment.content
+        self.assertNotIn('a=', content)
 
     def test_custom_message(self):
         """
         Checks the student view with a custom message.
         """
-        message = "test message"
-        xblock = make_an_xblock()
+        message = 'test message'
+        xblock = self.xblock
         xblock.message = message
         fragment = xblock.student_view()
         message_html = '<p>' + message + '</p>'
-        self.assertIn(message_html, fragment.content)
+        content = fragment.content
+        self.assertIn(message_html, content)
+
+
+if __name__ == '__main__':
+    unittest.main()
