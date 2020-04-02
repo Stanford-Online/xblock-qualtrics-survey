@@ -37,7 +37,7 @@ clean:  ## Remove build artifacts
 
 .PHONY: requirements
 requirements:  # Install required packages
-	pip install tox==3.7.0
+	pip install tox
 
 .PHONY: requirements_js
 requirements_js:  # Install required packages

@@ -24,7 +24,7 @@ setup(
         'qualtricssurvey',
     ],
     install_requires=[
-        'Django<2.0.0',
+        'Django',
         'edx-opaque-keys',
         'mock',
         'six',
@@ -54,6 +54,7 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: JavaScript',
         'Programming Language :: Python',
+        'Framework :: Django',
         'Topic :: Education',
         'Topic :: Internet :: WWW/HTTP',
     ],
