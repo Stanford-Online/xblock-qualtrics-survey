@@ -4,24 +4,17 @@ addons:
     - nodejs
 language: python
 sudo: false
-matrix:
-  include:
-    - python: 3.6
-      env: TOXENV=csslint
-    - python: 3.6
-      env: TOXENV=eslint
-    - python: 3.6
-      env: TOXENV=pycodestyle
-    - python: 3.6
-      env: TOXENV=pylint
-    - python: 3.6
-      env: TOXENV=py36
-    - python: 2.7
-      env: TOXENV=pycodestyle
-    - python: 2.7
-      env: TOXENV=pylint
-    - python: 2.7
-      env: TOXENV=py27
+python:
+  - 3.5
+env:
+  - TOX_ENV=csslint
+  - TOX_ENV=eslint
+  - TOX_ENV=pycodestyle
+  - TOX_ENV=pylint
+  - TOX_ENV=py35-django111
+  - TOX_ENV=py35-django20
+  - TOX_ENV=py35-django21
+  - TOX_ENV=py35-django22
 before_install:
   - "pip install -U pip"
   - export BOTO_CONFIG=/dev/null
@@ -30,11 +23,10 @@ cache:
         - $HOME/.cache/pip
 install:
   - "make requirements"
-  - "pip install coveralls"
+  - "pip install codecov"
 script:
-  - make test
+  - tox -e $TOX_ENV
 branches:
     only:
       - master
-after_success:
-  coveralls
+after_success: codecov
