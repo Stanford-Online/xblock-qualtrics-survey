@@ -5,28 +5,26 @@ addons:
 language: python
 sudo: false
 python:
-  - 3.5
+- 3.5
+- 3.8
 env:
-  - TOX_ENV=csslint
-  - TOX_ENV=eslint
-  - TOX_ENV=pycodestyle
-  - TOX_ENV=pylint
-  - TOX_ENV=py35-django111
-  - TOX_ENV=py35-django20
-  - TOX_ENV=py35-django21
-  - TOX_ENV=py35-django22
+- TOX_ENV=django22
+- TOX_ENV=csslint
+- TOX_ENV=eslint
+- TOX_ENV=pycodestyle
+- TOX_ENV=pylint
 before_install:
-  - "pip install -U pip"
-  - export BOTO_CONFIG=/dev/null
+- export BOTO_CONFIG=/dev/null
+- pip install pip==20.0.2
 cache:
-    directories:
-        - $HOME/.cache/pip
+  directories:
+  - $HOME/.cache/pip
 install:
-  - "make requirements"
-  - "pip install codecov"
+- make requirements
+- pip install codecov
 script:
-  - tox -e $TOX_ENV
+- tox -e $TOX_ENV
 branches:
-    only:
-      - master
+  only:
+  - master
 after_success: codecov
