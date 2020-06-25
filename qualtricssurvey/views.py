@@ -1,8 +1,6 @@
 """
 Handle view logic for the XBlock
 """
-from __future__ import absolute_import
-from six import text_type
 from xblockutils.resources import ResourceLoader
 from xblockutils.studio_editable import StudioEditableXBlockMixin
 
@@ -35,7 +33,7 @@ class QualtricsSurveyViewMixin(
                 anon_user_id=anon_user_id,
             )
         context.update({
-            'xblock_id': text_type(self.scope_ids.usage_id),
+            'xblock_id': str(self.scope_ids.usage_id),
             'survey_id': self.survey_id,
             'your_university': self.your_university,
             'link_text': self.link_text,
