@@ -4,7 +4,7 @@ Mixin fragment/html behavior into XBlocks
 Note: We should resume test coverage for all lines in this file once
 split into its own library.
 """
-from __future__ import absolute_import
+
 
 from django.template.context import Context
 from xblock.core import XBlock
