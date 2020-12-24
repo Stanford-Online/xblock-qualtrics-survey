@@ -1,28 +1,29 @@
 addons:
   apt:
     packages:
-    - nodejs
+      - nodejs
 language: python
 sudo: false
 python:
-- 3.5
-- 3.8
+  - '3.8'
 env:
-- TOX_ENV=django22
-- TOX_ENV=csslint
-- TOX_ENV=eslint
-- TOX_ENV=quality
+  - TOX_ENV=csslint
+  - TOX_ENV=eslint
+  - TOX_ENV=quality
+  - TOX_ENV=django22
+  - TOX_ENV=django30
+  - TOX_ENV=django31
 before_install:
-- export BOTO_CONFIG=/dev/null
-- pip install pip==20.0.2
+  - export BOTO_CONFIG=/dev/null
+  - pip install pip==20.0.2
 cache:
   directories:
-  - $HOME/.cache/pip
+    - $HOME/.cache/pip
 install:
-- make requirements_travis
+  - make requirements_travis
 script:
-- tox -e $TOX_ENV
+  - tox -e $TOX_ENV
 branches:
   only:
-  - master
+    - master
 after_success: codecov
