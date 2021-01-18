@@ -7,7 +7,7 @@ from xblock.fields import Scope
 from xblock.fields import String
 
 
-class QualtricsSurveyModelMixin(object):
+class QualtricsSurveyModelMixin:
     """
     Handle data access for XBlock instances
     """

@@ -4,7 +4,7 @@ Test the Qualtrics Survey XBlock
 """
 import unittest
 
-import mock
+from unittest import mock
 from opaque_keys.edx.locations import SlashSeparatedCourseKey
 from xblock.field_data import DictFieldData
 
