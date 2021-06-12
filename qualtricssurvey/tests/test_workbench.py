@@ -19,11 +19,11 @@ class TestWorkbench(unittest.TestCase):
         """
         Check if the text exists in any scenario
         """
-        contains = any([
+        contains = any(
             True
             for scenario in self.scenarios
             if text in scenario[1]
-        ])
+        )
         return contains
 
     def test_load(self):
