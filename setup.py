@@ -5,7 +5,7 @@ from os import path
 from setuptools import setup
 
 
-version = '1.1.0'
+version = '1.2.0'
 description = __doc__.strip().split('\n')[0]
 this_directory = path.abspath(path.dirname(__file__))
 with open(path.join(this_directory, 'README.rst')) as file_in:
@@ -75,6 +75,9 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Framework :: Django',
         'Framework :: Django :: 2.2',
+        'Framework :: Django :: 3.0',
+        'Framework :: Django :: 3.1',
+        'Framework :: Django :: 3.2',
         'Topic :: Education',
         'Topic :: Internet :: WWW/HTTP',
     ],
