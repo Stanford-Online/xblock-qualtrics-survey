@@ -28,10 +28,7 @@ class QualtricsSurveyViewMixin(
         anon_user_id = self.get_anon_id()
         user_id_string = ''
         if param_name:
-            user_id_string = ("?{param_name}={anon_user_id}").format(
-                param_name=param_name,
-                anon_user_id=anon_user_id,
-            )
+            user_id_string = f"?{param_name}={anon_user_id}"
         context.update({
             'xblock_id': str(self.scope_ids.usage_id),
             'survey_id': self.survey_id,
