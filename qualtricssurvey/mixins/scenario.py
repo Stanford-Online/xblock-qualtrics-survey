@@ -9,7 +9,7 @@ def _read_file(file_path):
     """
     Read in a file's contents
     """
-    with open(file_path) as file_input:
+    with open(file_path, encoding='utf-8') as file_input:
         file_contents = file_input.read()
     return file_contents
 
@@ -47,9 +47,7 @@ def _find_files(directory):
     """
     Find XML files in the directory
     """
-    pattern = "{directory}/*.xml".format(
-        directory=directory,
-    )
+    pattern = f"{directory}/*.xml"
     files = glob(pattern)
     return files
 

@@ -3,7 +3,7 @@ Qualtrics Survey
 
 XBlock to ease linking to Qualtrics surveys.
 
-|badge-travis|
+|badge-ci|
 |badge-coveralls|
 
 The tool makes it easy for instructors to link to a Qualtrics survey
@@ -91,8 +91,8 @@ Students click on a link within the unit and this takes them to the survey.
 
 .. |badge-coveralls| image:: https://coveralls.io/repos/github/Stanford-Online/xblock-qualtrics-survey/badge.svg?branch=master
    :target: https://coveralls.io/github/Stanford-Online/xblock-qualtrics-survey?branch=master
-.. |badge-travis| image:: https://travis-ci.org/Stanford-Online/xblock-qualtrics-survey.svg?branch=master
-   :target: https://travis-ci.org/Stanford-Online/xblock-qualtrics-survey
+.. |badge-ci| image:: https://github.com/edx/xblock-qualtrics-survey/workflows/Python%20CI/badge.svg?branch=master
+   :target: https://github.com/edx/xblock-qualtrics-survey/actions?query=workflow%3A%22Python+CI%22
 .. |image-cms-add| image:: https://s3-us-west-1.amazonaws.com/stanford-openedx-docs/xblocks/qualtrics-survey/static/images/cms-add.png
    :width: 100%
 .. |image-cms-advanced-module-list| image:: https://s3-us-west-1.amazonaws.com/stanford-openedx-docs/xblocks/qualtrics-survey/static/images/cms-advanced-module-list.png
