@@ -91,8 +91,8 @@ Students click on a link within the unit and this takes them to the survey.
 
 .. |badge-coveralls| image:: https://coveralls.io/repos/github/Stanford-Online/xblock-qualtrics-survey/badge.svg?branch=master
    :target: https://coveralls.io/github/Stanford-Online/xblock-qualtrics-survey?branch=master
-.. |badge-ci| image:: https://github.com/edx/xblock-qualtrics-survey/workflows/Python%20CI/badge.svg?branch=master
-   :target: https://github.com/edx/xblock-qualtrics-survey/actions?query=workflow%3A%22Python+CI%22
+.. |badge-ci| image:: https://github.com/openedx/xblock-qualtrics-survey/workflows/Python%20CI/badge.svg?branch=master
+   :target: https://github.com/openedx/xblock-qualtrics-survey/actions?query=workflow%3A%22Python+CI%22
 .. |image-cms-add| image:: https://s3-us-west-1.amazonaws.com/stanford-openedx-docs/xblocks/qualtrics-survey/static/images/cms-add.png
    :width: 100%
 .. |image-cms-advanced-module-list| image:: https://s3-us-west-1.amazonaws.com/stanford-openedx-docs/xblocks/qualtrics-survey/static/images/cms-advanced-module-list.png
