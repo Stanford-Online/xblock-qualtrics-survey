@@ -5,9 +5,10 @@ import os
 import re
 from os import path
 
-from setuptools import setup
+from setuptools import find_packages, setup
 
-version = '1.2.1'
+
+version = '1.2.2'
 description = __doc__.strip().split('\n')[0]
 this_directory = path.abspath(path.dirname(__file__))
 with open(path.join(this_directory, 'README.rst')) as file_in:
@@ -89,9 +90,9 @@ setup(
     author_email='dcadams@stanford.edu',
     url='https://github.com/Stanford-Online/xblock-qualtrics-survey',
     license='AGPL-3.0',
-    packages=[
-        'qualtricssurvey',
-    ],
+    packages=find_packages(
+        include=['qualtricssurvey', 'qualtricssurvey.*'],
+    ),
     install_requires=load_requirements('requirements/base.in'),
     entry_points={
         'xblock.v1': [
